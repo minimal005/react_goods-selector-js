@@ -37,33 +37,34 @@ export const App = () => {
 
       <table className="table">
         <tbody>
-          {goods.map(good => (
-            <tr
-              data-cy="Good"
-              className={clsx(
-                selectedGood === good && 'has-background-success-light',
-              )}
-            >
-              <td>
-                <button
-                  data-cy={selectedGood === good ? 'RemoveButton' : 'AddButton'}
-                  type="button"
-                  className={clsx('button', selectedGood === good && 'is-info')}
-                  onClick={
-                    selectedGood === good
-                      ? () => setSelectedGood('')
-                      : () => setSelectedGood(good)
-                  }
-                >
-                  {selectedGood === good ? '-' : '+'}
-                </button>
-              </td>
+          {goods.map(good => {
+            const isSelected = selectedGood === good;
 
-              <td data-cy="GoodTitle" className="is-vcentered">
-                {good}
-              </td>
-            </tr>
-          ))}
+            return (
+              <tr
+                key={good}
+                data-cy="Good"
+                className={clsx(isSelected && 'has-background-success-light')}
+              >
+                <td>
+                  <button
+                    data-cy={isSelected ? 'RemoveButton' : 'AddButton'}
+                    type="button"
+                    className={clsx('button', isSelected && 'is-info')}
+                    onClick={() =>
+                      isSelected ? setSelectedGood('') : setSelectedGood(good)
+                    }
+                  >
+                    {isSelected ? '-' : '+'}
+                  </button>
+                </td>
+
+                <td data-cy="GoodTitle" className="is-vcentered">
+                  {good}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </main>
